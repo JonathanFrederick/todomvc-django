@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework import routers
+from todo.views import TaskViewSet
 from django.views.generic import TemplateView
+
+router = routers.DefaultRouter()
+router.register(r'todos', TaskViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include(router.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
 ]
